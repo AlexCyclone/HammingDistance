@@ -9,16 +9,22 @@ public class Main {
         int a = sc.nextInt();
         System.out.print("Input b: ");
         int b = sc.nextInt();
+
         System.out.println("H = " + hammingDistance(a, b));
     }
 
     private static int hammingDistance(int a, int b) {
-        int h = 0;
-        while (a != 0 || b != 0) {
-            h += a%2 == 0 ^ b%2 == 0 ? 1 : 0;
-            a >>= 1;
-            b >>= 1;
+        if ((a < 0) || (b < 0)) {
+            throw new IllegalArgumentException("Digit must be positive integer");
         }
-        return h;
+
+        int distance = 0;
+        a ^= b;
+
+        while (a > 0) {
+            distance += a & 1;
+            a >>= 1;
+        }
+        return distance;
     }
 }
